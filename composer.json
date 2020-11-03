@@ -1,5 +1,5 @@
 {
-    "name": "fuzion/omnipay-paybox",
+    "name": "gvalfr35/omnipay-paybox",
     "type": "library",
     "description": "Paybox support for Omnipay payment processing library",
     "keywords": [
@@ -11,21 +11,25 @@
         "payment",
         "purchase"
     ],
-    "homepage": "https://github.com/eileenmcnaughton/omnipay-paybox",
+    "homepage": "https://github.com/GValFr35/omnipay-paybox",
     "license": "MIT",
     "authors": [
         {
             "name": "Eileen McNaughton",
             "email": "eileen@fuzion.co.nz"
+        },
+        {
+            "name": "Valery Gouleau",
+            "email": "v.gouleau@cyim.com"
         }
     ],
     "autoload": {
         "psr-4": { "Omnipay\\Paybox\\" : "src/" }
     },
     "require": {
-        "omnipay/common": "~2.0"
+        "omnipay/common": "~3.0"
     },
     "require-dev": {
-        "omnipay/tests": "~2.0"
+        "omnipay/tests": "~3.0"
     }
 }
