@@ -17,7 +17,7 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
         $signed_data_keys = array(
             'Mt',
             'Id',
-            'Ref',
+            'idtrans',
             'Erreur',
         );
         foreach ($signed_data_keys as $key) {
@@ -43,7 +43,7 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
 
     public function getTransactionReference()
     {
-        return isset($this->data['Ref']) ? $this->data['Ref'] : null;
+        return isset($this->data['idtrans']) ? $this->data['idtrans'] : null;
     }
 
     public function getTransactionId()

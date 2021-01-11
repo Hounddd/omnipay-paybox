@@ -112,7 +112,7 @@ class SystemAuthorizeRequest extends AbstractRequest
             'PBX_DEVISE' => $this->getCurrencyNumeric(),
             'PBX_CMD' => $this->getTransactionId(),
             'PBX_PORTEUR' => $this->getCard()->getEmail(),
-            'PBX_RETOUR' => 'Mt:M;Id:R;Ref:A;Erreur:E;sign:K',
+            'PBX_RETOUR' => 'Mt:M;Id:R;idtrans:S;Erreur:E;sign:K',
             'PBX_TIME' => $this->getTime(),
         );
     }
@@ -143,7 +143,7 @@ class SystemAuthorizeRequest extends AbstractRequest
         if ($this->getReturnUrl()) {
             $data['PBX_EFFECTUE'] = $this->getReturnUrl();
             $data['PBX_REFUSE'] = $this->getReturnUrl();
-            $data['PBX_ANNULE'] = $this->getCancelUrl();
+            $data['PBX_ANNULE'] = $this->getReturnUrl();
             $data['PBX_ATTENTE'] = $this->getReturnUrl();
         }
         return $data;
