@@ -14,7 +14,7 @@ to your `composer.json` file:
 ```json
 {
     "require": {
-        "fuzion/omnipay-paybox": "~2.0"
+        "gvalfr35/omnipay-paybox": "*"
     }
 }
 ```
