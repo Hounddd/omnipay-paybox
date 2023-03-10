@@ -159,14 +159,15 @@ class SystemAuthorizeRequest extends AbstractRequest
 
     /**
      * @return string
-     * http://www1.paybox.com/wp-content/uploads/2014/02/ManuelIntegrationPayboxSystem_V6.2_EN.pdf
+     * https://www.paybox.com/wp-content/uploads/2022/01/ManuelIntegrationVerifone_PayboxSystem_V8.1_FR.pdf
+     * see: 12.6 URL D’APPEL ET ADRESSES IP
      */
     public function getEndpoint()
     {
         if ($this->getTestMode()) {
-            return 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
+            return 'https://preprod-tpeweb.paybox.com/php';
         } else {
-            return 'https://tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
+            return 'https://tpeweb.paybox.com/php';
         }
     }
 
