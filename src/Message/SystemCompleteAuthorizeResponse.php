@@ -17,7 +17,7 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
         $signed_data_keys = [
             'Mt',
             'Id',
-            'idtrans',
+            'Ref',
             'Erreur',
         ];
         foreach ($signed_data_keys as $key) {
@@ -43,7 +43,7 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
 
     public function getTransactionReference()
     {
-        return isset($this->data['idtrans']) ? $this->data['idtrans'] : null;
+        return isset($this->data['Ref']) ? $this->data['Ref'] : null;
     }
 
     public function getTransactionId()
@@ -130,6 +130,7 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
         }
         return implode('&', $result);
     }
+
     /**
      * Gets the signature set in the http request.
      *
