@@ -11,7 +11,7 @@ class DirectGatewayTest extends GatewayTestCase
      */
     protected $gateway;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -34,7 +34,7 @@ class DirectGatewayTest extends GatewayTestCase
             'card' => [
                 'firstName' => 'Pokemon',
                 'lastName' => 'The second',
-                'email' => 'any@email.com',
+                'email' => 'test@paybox.com',
             ]
         ])->send();
 
