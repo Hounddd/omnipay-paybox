@@ -89,7 +89,9 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
             $publicKey,
             'sha1WithRSAEncryption'
         );
-        openssl_free_key($publicKey);
+        if (PHP_VERSION_ID < 80000) {
+            openssl_free_key($privateKey);
+        }
         if ($result == 1) {
             return true;
         } elseif ($result == 0) {
