@@ -29,7 +29,7 @@ class SystemGateway extends AbstractGateway
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\AuthorizeRequest
+     * @return \Omnipay\Paybox\Message\SystemAuthorizeRequest
      */
     public function authorize(array $parameters = [])
     {
@@ -39,7 +39,7 @@ class SystemGateway extends AbstractGateway
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\CaptureRequest
+     * @return \Omnipay\Paybox\Message\SystemCaptureRequest
      */
     public function capture(array $parameters = [])
     {
@@ -49,7 +49,7 @@ class SystemGateway extends AbstractGateway
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\PurchaseRequest
+     * @return \Omnipay\Paybox\Message\SystemPurchaseRequest
      */
     public function purchase(array $parameters = [])
     {
@@ -71,7 +71,7 @@ class SystemGateway extends AbstractGateway
 
     /**
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\CompleteAuthorizeRequest
+     * @return \Omnipay\Paybox\Message\SystemCompleteAuthorizeRequest
      */
     public function completeAuthorize(array $parameters = [])
     {
@@ -81,7 +81,7 @@ class SystemGateway extends AbstractGateway
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\CreateCardRequest
+     * @return \Omnipay\Paybox\Message\SystemCreateCardRequest
      */
     public function createCard(array $parameters = [])
     {
@@ -91,7 +91,7 @@ class SystemGateway extends AbstractGateway
     /**
      *
      * @param array $parameters
-     * @return \Omnipay\Paybox\Message\UpdateCardRequest
+     * @return \Omnipay\Paybox\Message\SystemUpdateCardRequest
      */
     public function updateCard(array $parameters = [])
     {

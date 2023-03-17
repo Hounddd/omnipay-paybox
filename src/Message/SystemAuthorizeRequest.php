@@ -7,6 +7,12 @@ namespace Omnipay\Paybox\Message;
  */
 class SystemAuthorizeRequest extends AbstractRequest
 {
+    /**
+     * Authorization without capture
+     *
+     * @var boolean
+     */
+    protected $onlyAuthorize = true;
 
     /**
      * Transaction time in timezone format e.g 2011-02-28T11:01:50+01:00.
@@ -43,18 +49,17 @@ class SystemAuthorizeRequest extends AbstractRequest
         }
         $this->validateCardFields();
         $data = $this->getBaseData() + $this->getTransactionData() + $this->getURLData();
+        if ($this->onlyAuthorize) {
+            $data['PBX_AUTOSEULE'] = 'O';
+        }
+
         $data['PBX_HMAC'] = $this->generateSignature($data);
         return $data;
     }
 
     public function sendData($data)
     {
-        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
-    }
-
-    protected function createResponse($data)
-    {
-        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
+        return $this->response = new SystemAuthorizeResponse($this, $data, $this->getEndpoint());
     }
 
     public function getSite()
