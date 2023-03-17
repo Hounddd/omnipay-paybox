@@ -9,7 +9,7 @@ class SystemUpdateCardRequest extends SystemAuthorizeRequest
 {
     public function getData()
     {
-        $data = array();
+        $data = [];
         $data['description'] = $this->getDescription();
 
         if ($this->getToken()) {

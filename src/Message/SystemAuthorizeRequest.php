@@ -89,32 +89,29 @@ class SystemAuthorizeRequest extends AbstractRequest
 
     public function getRequiredCoreFields()
     {
-        return array
-        (
+        return [
             'amount',
             'currency',
-        );
+        ];
     }
 
     public function getRequiredCardFields()
     {
-        return array
-        (
+        return [
             'email',
-        );
+        ];
     }
 
     public function getTransactionData()
     {
-        return array
-        (
+        return [
             'PBX_TOTAL' => $this->getAmountInteger(),
             'PBX_DEVISE' => $this->getCurrencyNumeric(),
             'PBX_CMD' => $this->getTransactionId(),
             'PBX_PORTEUR' => $this->getCard()->getEmail(),
             'PBX_RETOUR' => 'Mt:M;Id:R;idtrans:S;Erreur:E;sign:K',
             'PBX_TIME' => $this->getTime(),
-        );
+        ];
     }
 
     /**
@@ -122,11 +119,11 @@ class SystemAuthorizeRequest extends AbstractRequest
      */
     public function getBaseData()
     {
-        return array(
+        return [
             'PBX_SITE' => $this->getSite(),
             'PBX_RANG' => $this->getRang(),
             'PBX_IDENTIFIANT' => $this->getIdentifiant(),
-        );
+        ];
     }
 
     /**
@@ -136,7 +133,7 @@ class SystemAuthorizeRequest extends AbstractRequest
      */
     public function getURLData()
     {
-        $data = array();
+        $data = [];
         if ($this->getNotifyUrl()) {
             $data['PBX_REPONDRE_A'] = $this->getNotifyUrl();
         }

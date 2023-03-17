@@ -65,8 +65,8 @@ class DirectAuthorizeRequest extends AbstractRequest
 
     public function getRequiredFields()
     {
-        $extraFields = $this->getIsUsOrCanada() ? $this->getRequiredFieldsUsAndCanada() : array();
-        return array_merge(array(
+        $extraFields = $this->getIsUsOrCanada() ? $this->getRequiredFieldsUsAndCanada() : [];
+        return array_merge([
             'amount',
             'city',
             'country',
@@ -74,24 +74,24 @@ class DirectAuthorizeRequest extends AbstractRequest
             'email',
             'firstName',
             'lastName',
-        ), $extraFields);
+        ], $extraFields);
     }
 
     public function getRequiredFieldsUsAndCanada()
     {
-        return array(
+        return [
             'postcode',
             'billingState',
-        );
+        ];
     }
 
     public function getTransactionData()
     {
-        return array(
+        return [
             'REFERENCE' => $this->getTransactionId(),
             'MONTANT' => $this->getAmount(),
             'DEVISE' => $this->getCurrency(),
-        );
+        ];
     }
 
     /**
@@ -99,7 +99,7 @@ class DirectAuthorizeRequest extends AbstractRequest
      */
     public function getBaseData()
     {
-        return array(
+        return [
             'SITE' => $this->getSite(),
             'RANG' => $this->getRang(),
             //@todo where should this be set ?
@@ -109,7 +109,7 @@ class DirectAuthorizeRequest extends AbstractRequest
             'TYPE' => $this->getTransactionType(),
             'NUMQUESTION' => substr(uniqid(), 0, 10),
             'DATEQ' => date('dmYhis')
-        );
+        ];
     }
 
     /**

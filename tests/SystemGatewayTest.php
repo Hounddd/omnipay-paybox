@@ -42,7 +42,7 @@ class SystemGatewayTest extends GatewayTestCase
 
     public function testPurchase()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00'));
+        $request = $this->gateway->purchase(['amount' => '10.00']);
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemPurchaseRequest', $request);
         $this->assertSame('10.00', $request->getAmount());
@@ -51,7 +51,7 @@ class SystemGatewayTest extends GatewayTestCase
 
     public function testPurchaseTestMode()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00', 'testMode' => true));
+        $request = $this->gateway->purchase(['amount' => '10.00', 'testMode' => true]);
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemPurchaseRequest', $request);
         $this->assertSame('10.00', $request->getAmount());
@@ -60,7 +60,7 @@ class SystemGatewayTest extends GatewayTestCase
 
     public function testCompletePurchase()
     {
-        $request = $this->gateway->completePurchase(array('amount' => '10.00'));
+        $request = $this->gateway->completePurchase(['amount' => '10.00']);
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemCompletePurchaseRequest', $request);
         $this->assertSame('10.00', $request->getAmount());
@@ -68,20 +68,20 @@ class SystemGatewayTest extends GatewayTestCase
 /*
     public function testCompleteAuthorize()
     {
-        $options = array(
+        $options = [
             'amount' => '10.00',
             'transactionId' => '45',
             'returnUrl' => 'https://www.example.com/return',
-        );
+        ];
         $signature = 'opPlzAadVvCor99yZ8oj2NHmE0eAxXkmCZ80C%2BYW8htpF7Wf6krYYFjc1pQnvYHcW7vp3ta3p8Gfh7gAaR6WDOnhe1Xzm39whk11%2BShieXbQCnEKXot4aGkpodxi1cHutXBhh1IBQOLgq1IVM%2BaV9PUeTI%2FGFruSDnA1TExDHZE%3D';
 
         $this->getHttpRequest()->request->replace(
-            array(
+            [
                 'Mt' => 100,
                 'Id' => 45,
                 'Erreur' => '00114',
                 'sign' => $signature,
-            )
+            ]
         );
 
         $response = $this->gateway->completeAuthorize($options)->send();
@@ -92,11 +92,15 @@ class SystemGatewayTest extends GatewayTestCase
 */
     public function testPurchaseSend()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00', 'currency' => 'USD', 'card' => array(
-            'firstName' => 'Pokemon',
-            'lastName' => 'The second',
-            'email' => 'test@paybox.com',
-        )))->send();
+        $request = $this->gateway->purchase([
+            'amount' => '10.00',
+            'currency' => 'USD',
+            'card' => [
+                'firstName' => 'Pokemon',
+                'lastName' => 'The second',
+                'email' => 'test@paybox.com',
+            ]
+        ])->send();
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemResponse', $request);
         $this->assertFalse($request->isTransparentRedirect());
@@ -105,11 +109,15 @@ class SystemGatewayTest extends GatewayTestCase
 
     public function testPurchaseSendWithSiteData()
     {
-        $gateway = $this->gateway->purchase(array('amount' => '10.00', 'currency' => 'EUR', 'card' => array(
-            'firstName' => 'Pokemon',
-            'lastName' => 'The second',
-            'email' => 'test@paybox.com',
-        )));
+        $gateway = $this->gateway->purchase([
+            'amount' => '10.00',
+            'currency' => 'USD',
+            'card' => [
+                'firstName' => 'Pokemon',
+                'lastName' => 'The second',
+                'email' => 'test@paybox.com',
+            ]
+        ]);
 
         $gateway->setRang($this->rang);
         $gateway->setSite($this->site);

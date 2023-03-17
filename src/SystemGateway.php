@@ -6,8 +6,6 @@ use Omnipay\Common\AbstractGateway;
 /**
  * Paybox System Gateway
  *
- * @link http://www1.paybox.com/wp-content/uploads/2014/06/ManuelIntegrationPayboxDirect_V6.3_EN.pdf
- * @link http://www1.paybox.com/wp-content/uploads/2014/02/PayboxTestParameters_V6.2_EN.pdf
  */
 class SystemGateway extends AbstractGateway
 {
@@ -19,13 +17,13 @@ class SystemGateway extends AbstractGateway
 
     public function getDefaultParameters()
     {
-        return array(
+        return [
             'site' => '',
             'rang' => '',
             'identifiant' => '',
             'key' => '',
             'testMode' => false,
-        );
+        ];
     }
 
     /**
@@ -33,7 +31,7 @@ class SystemGateway extends AbstractGateway
      * @param array $parameters
      * @return \Omnipay\Paybox\Message\AuthorizeRequest
      */
-    public function authorize(array $parameters = array())
+    public function authorize(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paybox\Message\SystemAuthorizeRequest', $parameters);
     }
@@ -43,7 +41,7 @@ class SystemGateway extends AbstractGateway
      * @param array $parameters
      * @return \Omnipay\Paybox\Message\CaptureRequest
      */
-    public function capture(array $parameters = array())
+    public function capture(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paybox\Message\SystemCaptureRequest', $parameters);
     }
@@ -53,7 +51,7 @@ class SystemGateway extends AbstractGateway
      * @param array $parameters
      * @return \Omnipay\Paybox\Message\PurchaseRequest
      */
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paybox\Message\SystemPurchaseRequest', $parameters);
     }
@@ -66,7 +64,7 @@ class SystemGateway extends AbstractGateway
      * @param array $parameters
      * @return \Omnipay\Paybox\Message\SystemCompletePurchaseRequest
      */
-    public function completePurchase(array $parameters = array())
+    public function completePurchase(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paybox\Message\SystemCompletePurchaseRequest', $parameters);
     }
@@ -75,7 +73,7 @@ class SystemGateway extends AbstractGateway
      * @param array $parameters
      * @return \Omnipay\Paybox\Message\CompleteAuthorizeRequest
      */
-    public function completeAuthorize(array $parameters = array())
+    public function completeAuthorize(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paybox\Message\SystemCompleteAuthorizeRequest', $parameters);
     }
@@ -85,7 +83,7 @@ class SystemGateway extends AbstractGateway
      * @param array $parameters
      * @return \Omnipay\Paybox\Message\CreateCardRequest
      */
-    public function createCard(array $parameters = array())
+    public function createCard(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paybox\Message\SystemCreateCardRequest', $parameters);
     }
@@ -95,7 +93,7 @@ class SystemGateway extends AbstractGateway
      * @param array $parameters
      * @return \Omnipay\Paybox\Message\UpdateCardRequest
      */
-    public function updateCard(array $parameters = array())
+    public function updateCard(array $parameters = [])
     {
         return $this->createRequest('\Omnipay\Paybox\Message\SystemUpdateCardRequest', $parameters);
     }
