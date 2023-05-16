@@ -8,15 +8,15 @@ class SystemCompleteAuthorizeResponseTest extends TestCase
 {
     public function testSuccess()
     {
-        $response = new SystemCompleteAuthorizeResponse(
+        $response = new SystemCompleteAuthorizeResponseLocalKey(
             $this->getMockRequest(),
-            array(
+            [
                'Mt' => 100,
                'Id' => 47,
-               'Ref' => 601957,
+               'idtrans' => 601957,
                'Erreur' => '00000',
-               'sign' => 'jRk0xXxO6wGwyL9G0K5oj5Xihxbr0s0gxhBkXT7D0k0KAFKywaqy1xd%2BorpeU1hM2Dq5KvDP42byaRzEIx3ymVvAP%2FCtM7jzTXO58tbvsXojPvLGEqz4q9QhrCH%2BOmQL6AfXt6lXImzjTgrKDIvIu6EX%2BNpp5sbcot%2BafOrTVkQ%3D',
-                )
+               'sign' => 'TVw83RDN4Vbji%2BCkh9djB8ezLIJqDsZmNuliCTrfHiBdK1Frfr5fpY9COixHpzmksT37oGl3ifwoZTL8%2FxLaC9Sk0pArMKRtNPWTY8Ubj82S8vgrxEEDdXOA9aykfjjldfG5e1xzHd3z8dAyjd5gs7DlvQWD1mqXqnOQ6BqzcBQ%3D',
+            ]
         );
 
         $this->assertTrue($response->isSuccessful());
@@ -28,16 +28,31 @@ class SystemCompleteAuthorizeResponseTest extends TestCase
     {
         $response = new SystemCompleteAuthorizeResponse(
             $this->getMockRequest(),
-            array(
+            [
                 'Mt' => 100,
                 'Id' => 45,
                 'Erreur' => '00114',
                 'sign' => 'opPlzAadVvCor99yZ8oj2NHmE0eAxXkmCZ80C%2BYW8htpF7Wf6krYYFjc1pQnvYHcW7vp3ta3p8Gfh7gAaR6WDOnhe1Xzm39whk11%2BShieXbQCnEKXot4aGkpodxi1cHutXBhh1IBQOLgq1IVM%2BaV9PUeTI%2FGFruSDnA1TExDHZE%3D',
-            )
+            ]
         );
 
         $this->assertFalse($response->isSuccessful());
         $this->assertSame(45, $response->getTransactionId());
         $this->assertSame('Transaction failed', $response->getMessage());
     }
+}
+
+class SystemCompleteAuthorizeResponseLocalKey extends SystemCompleteAuthorizeResponse {
+
+    /**
+     * Get local public key file path.
+     *
+     * @return string
+     *  Full path to local public key for testing
+     */
+    protected function getPublicKey()
+    {
+        return  __DIR__ . '/../src/Resources/tests/test_pubkey.pem';
+    }
+
 }

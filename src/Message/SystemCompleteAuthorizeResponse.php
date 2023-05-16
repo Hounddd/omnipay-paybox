@@ -11,6 +11,8 @@ use Omnipay\Common\Message\RequestInterface;
  */
 class SystemCompleteAuthorizeResponse extends AbstractResponse
 {
+    protected string $signature;
+
     public function __construct(RequestInterface $request, $data)
     {
         $this->request = $request;
@@ -89,7 +91,6 @@ class SystemCompleteAuthorizeResponse extends AbstractResponse
             $publicKey,
             'sha1WithRSAEncryption'
         );
-        openssl_free_key($publicKey);
         if ($result == 1) {
             return true;
         } elseif ($result == 0) {

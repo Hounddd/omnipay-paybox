@@ -18,7 +18,7 @@ class AbstractRequestTest extends TestCase
      */
     public $request;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->request = new SystemPurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize(

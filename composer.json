@@ -27,21 +27,27 @@
         "psr-4": { "Omnipay\\Paybox\\" : "src/" }
     },
     "require": {
-        "omnipay/common": "^3"
+        "php": "^8",
+        "omnipay/common": "^3.1",
+        "symfony/http-client": "^6.2",
+        "http-interop/http-factory-guzzle": "^1.2"
     },
     "require-dev": {
-        "omnipay/tests": "^3",
-        "squizlabs/php_codesniffer": "^3",
-        "phpro/grumphp": "^0.14.0"
+        "omnipay/tests": "^4.0"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.0.x-dev"
+            "dev-master": "^3"
         }
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
         "check-style": "phpcs -p --standard=PSR2 src/",
         "fix-style": "phpcbf -p --standard=PSR2 src/"
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }

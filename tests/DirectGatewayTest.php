@@ -11,7 +11,7 @@ class DirectGatewayTest extends GatewayTestCase
      */
     protected $gateway;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
