@@ -92,6 +92,37 @@ class SystemAuthorizeRequest extends AbstractRequest
         return $this->setParameter('identifiant', $value);
     }
 
+
+    public function getShoppingCart()
+    {
+        return $this->getParameter('shoppingCart');
+    }
+
+    public function setShoppingCart($value)
+    {
+        return $this->setParameter('shoppingCart', $value);
+    }
+
+    public function getBilling()
+    {
+        return $this->getParameter('billing');
+    }
+
+    public function setBilling($value)
+    {
+        return $this->setParameter('billing', $value);
+    }
+
+    public function getEnableAuthentification()
+    {
+        return $this->getParameter('enableAuthentification');
+    }
+
+    public function setEnableAuthentification($value)
+    {
+        return $this->setParameter('enableAuthentification', $value);
+    }
+
     public function getRequiredCoreFields()
     {
         return [
@@ -116,6 +147,9 @@ class SystemAuthorizeRequest extends AbstractRequest
             'PBX_PORTEUR' => $this->getCard()->getEmail(),
             'PBX_RETOUR' => 'Mt:M;Id:R;Ref:S;Erreur:E;sign:K',
             'PBX_TIME' => $this->getTime(),
+            'PBX_SHOPPINGCART' => $this->getShoppingCart(),
+            'PBX_BILLING' => $this->getBilling(),
+            'PBX_SOUHAITAUTHENT' => $this->getEnableAuthentification(),
         ];
     }
 

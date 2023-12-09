@@ -8,14 +8,14 @@ class SystemCompleteAuthorizeResponseTest extends TestCase
 {
     public function testSuccess()
     {
-        $response = new SystemCompleteAuthorizeResponse(
+        $response = new SystemCompleteAuthorizeResponseLocalKey(
             $this->getMockRequest(),
             [
                 'Mt' => 100,
                 'Id' => 47,
                 'Ref' => 601957,
                 'Erreur' => '00000',
-                'sign' => 'jRk0xXxO6wGwyL9G0K5oj5Xihxbr0s0gxhBkXT7D0k0KAFKywaqy1xd%2BorpeU1hM2Dq5KvDP42byaRzEIx3ymVvAP%2FCtM7jzTXO58tbvsXojPvLGEqz4q9QhrCH%2BOmQL6AfXt6lXImzjTgrKDIvIu6EX%2BNpp5sbcot%2BafOrTVkQ%3D',
+                'sign' => 'Lw%2FQgRrw570C1F2pOU%2B8h2INbTeBEkodjcec%2Fvpnrb4EyHBI4JPlnBHnx3CTdZIDr8HSQgAvuyowijKLG7UlFc6dOuLrN3MgcDnbIBx0dHtMc6%2Bojacp3LR0AbZI2hd73HeZGUM8i0xCkj9IQGjGyNnvqLxuvskQrKVtAKo6JiU%3D',
             ]
         );
 
@@ -91,4 +91,20 @@ class SystemCompleteAuthorizeResponseTest extends TestCase
         $this->assertSame(601957, $response->getTransactionReference());
         $this->assertSame('Signature is invalid.', $response->getMessage());
     }
+}
+
+
+class SystemCompleteAuthorizeResponseLocalKey extends SystemCompleteAuthorizeResponse
+{
+    /**
+     * Get local public key file path.
+     *
+     * @return string
+     *  Full path to local public key for testing
+     */
+    protected function getPublicKey()
+    {
+        return  __DIR__ . '/../src/Resources/tests/test_pubkey.pem';
+    }
+
 }
