@@ -1,5 +1,5 @@
 {
-    "name": "gvalfr35/omnipay-paybox",
+    "name": "hounddd/omnipay-paybox",
     "type": "library",
     "description": "Paybox support for Omnipay payment processing library",
     "keywords": [
@@ -11,16 +11,23 @@
         "payment",
         "purchase"
     ],
-    "homepage": "https://github.com/GValFr35/omnipay-paybox",
+    "homepage": "https://github.com/hounddd/omnipay-paybox",
     "license": "MIT",
     "authors": [
         {
             "name": "Eileen McNaughton",
-            "email": "eileen@fuzion.co.nz"
+            "email": "eileen@fuzion.co.nz",
+            "role": "Original author"
         },
         {
             "name": "Valery Gouleau",
-            "email": "v.gouleau@cyim.com"
+            "email": "v.gouleau@cyim.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Damien MATHIEU",
+            "email": "damien@hounddd.fr",
+            "role": "Developer"
         }
     ],
     "autoload": {
