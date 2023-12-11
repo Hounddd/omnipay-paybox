@@ -33,7 +33,8 @@
         "http-interop/http-factory-guzzle": "^1.2"
     },
     "require-dev": {
-        "omnipay/tests": "^4.0"
+        "omnipay/tests": "^4.0",
+        "phpunit/phpunit": "^8.5"
     },
     "extra": {
         "branch-alias": {

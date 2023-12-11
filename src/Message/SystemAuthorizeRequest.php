@@ -7,6 +7,12 @@ namespace Omnipay\Paybox\Message;
  */
 class SystemAuthorizeRequest extends AbstractRequest
 {
+    /**
+     * Authorization without capture
+     *
+     * @var boolean
+     */
+    protected $onlyAuthorize = true;
 
     /**
      * Transaction time in timezone format e.g 2011-02-28T11:01:50+01:00.
@@ -43,18 +49,17 @@ class SystemAuthorizeRequest extends AbstractRequest
         }
         $this->validateCardFields();
         $data = $this->getBaseData() + $this->getTransactionData() + $this->getURLData();
+        if ($this->onlyAuthorize) {
+            $data['PBX_AUTOSEULE'] = 'O';
+        }
+
         $data['PBX_HMAC'] = $this->generateSignature($data);
         return $data;
     }
 
     public function sendData($data)
     {
-        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
-    }
-
-    protected function createResponse($data)
-    {
-        return $this->response = new SystemResponse($this, $data, $this->getEndpoint());
+        return $this->response = new SystemAuthorizeResponse($this, $data, $this->getEndpoint());
     }
 
     public function getSite()
@@ -87,34 +92,65 @@ class SystemAuthorizeRequest extends AbstractRequest
         return $this->setParameter('identifiant', $value);
     }
 
+
+    public function getShoppingCart()
+    {
+        return $this->getParameter('shoppingCart');
+    }
+
+    public function setShoppingCart($value)
+    {
+        return $this->setParameter('shoppingCart', $value);
+    }
+
+    public function getBilling()
+    {
+        return $this->getParameter('billing');
+    }
+
+    public function setBilling($value)
+    {
+        return $this->setParameter('billing', $value);
+    }
+
+    public function getEnableAuthentification()
+    {
+        return $this->getParameter('enableAuthentification');
+    }
+
+    public function setEnableAuthentification($value)
+    {
+        return $this->setParameter('enableAuthentification', $value);
+    }
+
     public function getRequiredCoreFields()
     {
-        return array
-        (
+        return [
             'amount',
             'currency',
-        );
+        ];
     }
 
     public function getRequiredCardFields()
     {
-        return array
-        (
+        return [
             'email',
-        );
+        ];
     }
 
     public function getTransactionData()
     {
-        return array
-        (
+        return [
             'PBX_TOTAL' => $this->getAmountInteger(),
             'PBX_DEVISE' => $this->getCurrencyNumeric(),
             'PBX_CMD' => $this->getTransactionId(),
             'PBX_PORTEUR' => $this->getCard()->getEmail(),
-            'PBX_RETOUR' => 'Mt:M;Id:R;idtrans:S;Erreur:E;sign:K',
+            'PBX_RETOUR' => 'Mt:M;Id:R;Ref:S;Erreur:E;sign:K',
             'PBX_TIME' => $this->getTime(),
-        );
+            'PBX_SHOPPINGCART' => $this->getShoppingCart(),
+            'PBX_BILLING' => $this->getBilling(),
+            'PBX_SOUHAITAUTHENT' => $this->getEnableAuthentification(),
+        ];
     }
 
     /**
@@ -122,11 +158,11 @@ class SystemAuthorizeRequest extends AbstractRequest
      */
     public function getBaseData()
     {
-        return array(
+        return [
             'PBX_SITE' => $this->getSite(),
             'PBX_RANG' => $this->getRang(),
             'PBX_IDENTIFIANT' => $this->getIdentifiant(),
-        );
+        ];
     }
 
     /**
@@ -136,7 +172,7 @@ class SystemAuthorizeRequest extends AbstractRequest
      */
     public function getURLData()
     {
-        $data = array();
+        $data = [];
         if ($this->getNotifyUrl()) {
             $data['PBX_REPONDRE_A'] = $this->getNotifyUrl();
         }
@@ -159,14 +195,15 @@ class SystemAuthorizeRequest extends AbstractRequest
 
     /**
      * @return string
-     * http://www1.paybox.com/wp-content/uploads/2014/02/ManuelIntegrationPayboxSystem_V6.2_EN.pdf
+     * https://www.paybox.com/wp-content/uploads/2022/01/ManuelIntegrationVerifone_PayboxSystem_V8.1_FR.pdf
+     * see: 12.6 URL D’APPEL ET ADRESSES IP
      */
     public function getEndpoint()
     {
         if ($this->getTestMode()) {
-            return 'https://preprod-tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
+            return 'https://preprod-tpeweb.paybox.com/php';
         } else {
-            return 'https://tpeweb.paybox.com/cgi/MYchoix_pagepaiement.cgi';
+            return 'https://tpeweb.paybox.com/php';
         }
     }
 

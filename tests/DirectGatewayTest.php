@@ -11,7 +11,7 @@ class DirectGatewayTest extends GatewayTestCase
      */
     protected $gateway;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -20,7 +20,7 @@ class DirectGatewayTest extends GatewayTestCase
 
     public function testPurchase()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00'));
+        $request = $this->gateway->purchase(['amount' => '10.00']);
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\DirectPurchaseRequest', $request);
         $this->assertSame('10.00', $request->getAmount());
@@ -28,11 +28,15 @@ class DirectGatewayTest extends GatewayTestCase
 
     public function testCompletePurchaseSend()
     {
-        $request = $this->gateway->purchase(array('amount' => '10.00', 'currency' => 'USD', 'card' => array(
-            'firstName' => 'Pokemon',
-            'lastName' => 'The second',
-            'email' => 'any@email.com',
-        )))->send();
+        $request = $this->gateway->purchase([
+            'amount' => '10.00',
+            'currency' => 'USD',
+            'card' => [
+                'firstName' => 'Pokemon',
+                'lastName' => 'The second',
+                'email' => 'test@paybox.com',
+            ]
+        ])->send();
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\DirectResponse', $request);
         $this->assertTrue($request->isTransparentRedirect());

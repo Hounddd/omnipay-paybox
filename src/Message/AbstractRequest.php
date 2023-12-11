@@ -27,9 +27,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
      * @param array $data
      * @return string
      */
-    public function generateSignature($data)
+    public function generateSignature(array $data)
     {
-        $msg = array();
+        $msg = [];
         foreach ($data as $key => $value) {
             $msg[] = "{$key}={$value}";
         }
