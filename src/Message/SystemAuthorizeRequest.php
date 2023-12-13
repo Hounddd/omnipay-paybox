@@ -140,7 +140,7 @@ class SystemAuthorizeRequest extends AbstractRequest
 
     public function getTransactionData()
     {
-        return [
+        $data = [
             'PBX_TOTAL' => $this->getAmountInteger(),
             'PBX_DEVISE' => $this->getCurrencyNumeric(),
             'PBX_CMD' => $this->getTransactionId(),
@@ -149,8 +149,11 @@ class SystemAuthorizeRequest extends AbstractRequest
             'PBX_TIME' => $this->getTime(),
             'PBX_SHOPPINGCART' => $this->getShoppingCart(),
             'PBX_BILLING' => $this->getBilling(),
-            'PBX_SOUHAITAUTHENT' => $this->getEnableAuthentification(),
         ];
+        if ($this->getEnableAuthentification()) {
+            $data['PBX_SOUHAITAUTHENT'] = $this->getEnableAuthentification();
+        }
+        return $data;
     }
 
     /**
@@ -181,6 +184,9 @@ class SystemAuthorizeRequest extends AbstractRequest
             $data['PBX_REFUSE'] = $this->getReturnUrl();
             $data['PBX_ANNULE'] = $this->getReturnUrl();
             $data['PBX_ATTENTE'] = $this->getReturnUrl();
+        }
+        if ($this->getCancelUrl()) {
+            $data['PBX_ANNULE'] = $this->getCancelUrl();
         }
         return $data;
     }

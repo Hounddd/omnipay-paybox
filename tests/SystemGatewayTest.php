@@ -167,14 +167,20 @@ class SystemGatewayTest extends GatewayTestCase
 
         $hmac = '75E84EABB8398898DBE1150FDD68F82CB532CD44900F5ADAE1117CB9265E59DECA341DF2D548BDCFE587C3038468AF5FC58EC3CAAB5CB91F69A0DD407FF1482D';
 
+        // Merchant authentication - Frictionless requested.
+        $merchantAuthentification = '02';
+
         $expected_url = $expected_url = $this->getBaseExpectedUrl()
             . "&PBX_SHOPPINGCART=" . urlencode($this->shoopingCartXML)
             . "&PBX_BILLING=" . urlencode($this->billingXML)
-            . "&PBX_SOUHAITAUTHENT=02"
+            . "&PBX_SOUHAITAUTHENT=". $merchantAuthentification
             . "&PBX_HMAC=" . $hmac;
 
-        $gateway = $this->gateway
-            ->purchase($this->defaultPurchaseData);
+        $defaultPurchaseData = $this->getDefaultPurchaseData();
+        $defaultPurchaseData['enableAuthentification'] = $merchantAuthentification;
+        // var_dump($defaultPurchaseData);
+
+        $gateway = $this->gateway->purchase($defaultPurchaseData);
 
         $gateway->setRang($this->rang)
             ->setSite($this->site)
@@ -182,10 +188,6 @@ class SystemGatewayTest extends GatewayTestCase
             ->setTransactionID($this->transactionID)
             ->setKey($this->hmackey)
             ->setTime($this->transactionTime);
-
-        $gateway->setShoppingCart($this->shoopingCartXML)
-            ->setBilling($this->billingXML)
-            ->setEnableAuthentification('02');
 
         $request = $gateway->send();
 
@@ -198,16 +200,22 @@ class SystemGatewayTest extends GatewayTestCase
     {
         $this->set3dsTestAccount();
 
+        // Merchant authentication - Challenge required.
+        $merchantAuthentification = '04';
+
         $hmac = 'F6FAB41A0675457F3775A27E6A8B0223AE7FB0E5C3F4D2643F16E4AF96D88F65940359BE7B7E9468BA87B9CA7F034322AADA0C416CDE574B270097C1BDCCC31A';
 
-        $expected_url = $this->getBaseExpectedUrl()
+        $expected_url = $expected_url = $this->getBaseExpectedUrl()
             . "&PBX_SHOPPINGCART=" . urlencode($this->shoopingCartXML)
             . "&PBX_BILLING=" . urlencode($this->billingXML)
-            . "&PBX_SOUHAITAUTHENT=04"
+            . "&PBX_SOUHAITAUTHENT=". $merchantAuthentification
             . "&PBX_HMAC=" . $hmac;
 
-        $gateway = $this->gateway
-            ->purchase($this->defaultPurchaseData);
+        $defaultPurchaseData = $this->getDefaultPurchaseData();
+        $defaultPurchaseData['enableAuthentification'] = $merchantAuthentification;
+        var_dump($defaultPurchaseData);
+
+        $gateway = $this->gateway->purchase($defaultPurchaseData);
 
         $gateway->setRang($this->rang)
             ->setSite($this->site)
@@ -216,10 +224,6 @@ class SystemGatewayTest extends GatewayTestCase
             ->setKey($this->hmackey)
             ->setTime($this->transactionTime);
 
-        $gateway->setShoppingCart($this->shoopingCartXML)
-            ->setBilling($this->billingXML)
-            ->setEnableAuthentification('04');
-
         $request = $gateway->send();
 
         $this->assertInstanceOf('Omnipay\Paybox\Message\SystemResponse', $request);
@@ -227,6 +231,20 @@ class SystemGatewayTest extends GatewayTestCase
         $this->assertSame($expected_url, $request->getRedirectUrl());
     }
 
+
+    /**
+     * Get the default data for the purchase process
+     */
+    private function getDefaultPurchaseData(): array
+    {
+        return array_merge(
+            $this->defaultPurchaseData,
+            [
+                'shoppingCart' => $this->shoopingCartXML,
+                'billing' => $this->billingXML
+            ]
+        );
+    }
 
     /**
      * Change testing accound, use 'Tests Paybox System 3-D Secure' account
