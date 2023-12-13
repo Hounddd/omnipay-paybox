@@ -139,13 +139,12 @@ class SystemGatewayTest extends GatewayTestCase
 
     public function testPurchaseSendWithSiteData()
     {
-        $hmac = 'ACFCD463AD654139BCC1A47254A65B9637066CE019A2B6B14B4A549600DC12E0E2226A5C04E95722F7E993C45B86E01ABC4CDEC9A9C67FC41A662ABB1AF773AB';
+        $hmac = '14FCC9AD7077E55DEC832627BE0BDF101C69EA5EC4F57626F3859E40E492A6ABDA77BD4550F22D868E84711CA5AEE505293BE1AE63B196DCD2D1D7E1D52ED187';
 
         $expected_url = $expected_url = $this->getBaseExpectedUrl()
             . "&PBX_HMAC=" . $hmac;
 
-        $gateway = $this->gateway
-            ->purchase($this->defaultPurchaseData);
+        $gateway = $this->gateway->purchase($this->defaultPurchaseData);
 
         $gateway->setRang($this->rang)
             ->setSite($this->site)
@@ -165,10 +164,10 @@ class SystemGatewayTest extends GatewayTestCase
     {
         $this->set3dsTestAccount();
 
-        $hmac = '75E84EABB8398898DBE1150FDD68F82CB532CD44900F5ADAE1117CB9265E59DECA341DF2D548BDCFE587C3038468AF5FC58EC3CAAB5CB91F69A0DD407FF1482D';
-
         // Merchant authentication - Frictionless requested.
         $merchantAuthentification = '02';
+
+        $hmac = '75E84EABB8398898DBE1150FDD68F82CB532CD44900F5ADAE1117CB9265E59DECA341DF2D548BDCFE587C3038468AF5FC58EC3CAAB5CB91F69A0DD407FF1482D';
 
         $expected_url = $expected_url = $this->getBaseExpectedUrl()
             . "&PBX_SHOPPINGCART=" . urlencode($this->shoopingCartXML)
@@ -178,7 +177,6 @@ class SystemGatewayTest extends GatewayTestCase
 
         $defaultPurchaseData = $this->getDefaultPurchaseData();
         $defaultPurchaseData['enableAuthentification'] = $merchantAuthentification;
-        // var_dump($defaultPurchaseData);
 
         $gateway = $this->gateway->purchase($defaultPurchaseData);
 
@@ -213,7 +211,6 @@ class SystemGatewayTest extends GatewayTestCase
 
         $defaultPurchaseData = $this->getDefaultPurchaseData();
         $defaultPurchaseData['enableAuthentification'] = $merchantAuthentification;
-        var_dump($defaultPurchaseData);
 
         $gateway = $this->gateway->purchase($defaultPurchaseData);
 

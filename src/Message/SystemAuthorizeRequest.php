@@ -147,9 +147,13 @@ class SystemAuthorizeRequest extends AbstractRequest
             'PBX_PORTEUR' => $this->getCard()->getEmail(),
             'PBX_RETOUR' => 'Mt:M;Id:R;Ref:S;Erreur:E;sign:K',
             'PBX_TIME' => $this->getTime(),
-            'PBX_SHOPPINGCART' => $this->getShoppingCart(),
-            'PBX_BILLING' => $this->getBilling(),
         ];
+        if ($this->getShoppingCart()) {
+            $data['PBX_SHOPPINGCART'] = $this->getShoppingCart();
+        }
+        if ($this->getShoppingCart()) {
+            $data['PBX_BILLING'] = $this->getBilling();
+        }
         if ($this->getEnableAuthentification()) {
             $data['PBX_SOUHAITAUTHENT'] = $this->getEnableAuthentification();
         }
